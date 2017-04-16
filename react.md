@@ -23,3 +23,28 @@ function StyledLink (props) {
   )
 }
 ```
+
+### Radium
+
+[Radium](https://github.com/FormidableLabs/radium) extends the use of inline styles in React. It overcomes the shortcomings of pure inline styles allowing you to use both pseudo selectors and media queries. It uses JavaScript to detect events and is able to switch styles accordingly.
+
+```javascript
+import Radium from 'radium'
+
+const style = {
+  backgroundColor: 'goldenrod',
+  color: 'white',
+  ':hover': {
+    backgroundColor: 'white',
+    color: 'goldenrod'
+  }
+}
+
+function StyledLink (props) {
+  return (
+    <a style={style} href={props.href}>{props.children}</a>
+  )
+}
+
+export default Radium(StyledLink)
+```
