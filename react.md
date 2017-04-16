@@ -47,3 +47,57 @@ function StyledLink (props) {
 
 export default Radium(StyledLink)
 ```
+
+### CSS Modules
+
+[CSS Modules](https://github.com/css-modules/css-modules) move away from the CSS in JS approach and leverage vanilla CSS. They attempt to solve the problem of global CSS selectors by loading CSS scoped to a particular document. Unique class names are generated at the time of loading the document and are automatically referenced in your code. The webpack css-loader is used to generate class names without the need for additional plugins.
+
+The following `webpack.config.js` configuration is used to turn on the feature.
+
+```javascript
+{
+  test: /\.(css)$/,
+  use: [
+    'style-loader',
+    {
+      loader: 'css-loader',
+      query: {
+        modules: true,
+        localIdentName: '[name]__[local]___[hash:base64:5]'
+      }
+    }
+  ]
+}
+```
+
+Styles are then loaded directly from your component.
+
+```css
+.styledLink {
+  background-color: goldenrod;
+  color: white;
+}
+
+.styledLink:hover {
+  background-color: white;
+  color: goldenrod;
+}
+```
+
+```javascript
+import styles from './StyledLink.css'
+
+function StyledLink (props) {
+  return (
+    <a className={styles.styledLink} href={props.href}>{props.children}</a>
+  )
+}
+
+export default StyledLink
+```
+
+This example generates CSS similar to to this:
+
+```html
+<a className="StyledLink_styledLink_36wru" href="#">I'm a styled link!</a>
+```
