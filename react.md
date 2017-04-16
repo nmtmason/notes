@@ -17,7 +17,6 @@ const style = {
 }
 
 function StyledLink (props) {
-
   return (
     <a style={style} href={props.href}>{props.children}</a>
   )
