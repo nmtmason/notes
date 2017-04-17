@@ -101,3 +101,72 @@ This example generates CSS similar to to this:
 ```html
 <a className="StyledLink_styledLink_36wru" href="#">I'm a styled link!</a>
 ```
+
+### Component State and Variations
+
+It's often useful to encompass different states of a component. An input field for example may need to show an error state (perhaps a red border) when something has been entered incorrectly. You may also wish to create variations of components, such as smaller or larger versions of a button. This is achievable using both inline styles and CSS Modules.
+
+Take a button component for example. As well as a single object, the `style` attribute will accept an array of styles. Any which evaluate to truthy are merged into the overall style for the component. We can take advantage of the logical `&&` operator which will short circuit if the `small` property hasn't been supplied.
+
+```javascript
+const style = {
+  padding: '0.5rem 1rem',
+  fontSize: '1rem'
+}
+
+const smallStyle = {
+  padding: '0.25rem 0.5rem',
+  fontSize: '0.8rem'
+}
+
+function StyledButton ({small, children ...props}) {
+  return (
+    <button style={[
+      style,
+      small && smallStyle
+    ]} {...props}>{children}</button>
+  )
+}
+
+export default StyledButton
+
+// Usage:
+// <StyledButton>
+// <StyledButton small>
+```
+
+Whilst the `className` attribute doesn't accept an array of class names, we can still simulate the same trick in CSS Modules using a function.
+
+```css
+.styledButton {
+  padding: 0.5rem 1rem;
+  fontSize: 1rem;
+}
+
+.small {
+  padding: 0.25rem 0.5rem;
+  fontSize: 0.8rem;
+}
+```
+
+```javascript
+import style from './StyledButton.css'
+
+function classes (...styles) {
+  return styles.filter(function (style) {
+    return !!style
+  }).join(' ')
+}
+
+function StyledButton ({small, children ...props}) {
+  return (
+    <button className={classes(
+      style.styledButton,
+      small && style.small
+    )}{...props}>{children}</button>
+  )
+}
+
+export default StyledButton
+```
+Or we can use the handy [classnames](https://github.com/JedWatson/classnames) module for this!
