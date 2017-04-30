@@ -102,6 +102,47 @@ This example generates CSS similar to to this:
 <a className="StyledLink_styledLink_36wru" href="#">I'm a styled link!</a>
 ```
 
+### Styled Components
+
+[Styled Components](https://github.com/styled-components/styled-components) take a different approach, combining the benefits of both CSS-in-JS and CSS Modules. Tagged template literals allow CSS to be written directly inside a JavaScript file. There are no limitations to the CSS that you can write - media queries and pseudo selectors are all valid. It's also possible to access JavaScript variables (using props) in your CSS. Similar to CSS Modules, the CSS that you write is hashed into a unique class name for a component taking it out of global scope.
+
+```javascript
+import styled from 'styled-components'
+
+const StyledLink = styled.a`
+  background-color: goldenrod;
+  color: white;
+
+  &:hover {
+    background-color: white;
+    color: goldenrod;
+  }
+`
+
+export default StyledLink
+```
+
+In the example above, StyledLink behaves exactly like an `<a>` tag allowing you to pass props as you would normally. However, the StyledLink now has a className associated to it which refers back to the CSS it was created with.
+
+You are not limited to default HTML elements when creating Styled Components. For example you could choose to style the Link component provided by React Router.
+
+```javascript
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+
+const StyledLink = styled(Link)`
+  background-color: goldenrod;
+  color: white;
+
+  &:hover {
+    background-color: white;
+    color: goldenrod;
+  }
+`
+
+export default StyledLink
+```
+
 ### Component State and Variations
 
 It's often useful to encompass different states of a component. An input field for example may need to show an error state (perhaps a red border) when something has been entered incorrectly. You may also wish to create variations of components, such as smaller or larger versions of a button. This is achievable using both inline styles and CSS Modules.
