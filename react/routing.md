@@ -34,7 +34,7 @@ import { withRouter } from 'react-router-dom'
 
 const ComponentNotMountedWithRoute = ({ match, location, history }) => (
   <p>
-    You're at {location.pathname}!
+    At {location.pathname}!
   </p>
 )
 
