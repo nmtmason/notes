@@ -30,7 +30,7 @@ export default Home
 It may be necessary to match the routing context in a component that hasn't been created with `<Route>`. React Router provides the `withRouter` higher order function for these situations. It provides the `match`, `location` and `history` props.
 
 ```javascript
-import { withRouter } from 'react-router-dom
+import { withRouter } from 'react-router-dom'
 
 const ComponentNotMountedWithRoute = ({ match, location, history }) => (
   <p>
